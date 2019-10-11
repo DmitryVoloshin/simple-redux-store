@@ -1,1 +1,1 @@
-this repo just for help learning react to my friend
+This repo just for help learning react+redux to my friend
