@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import './phone-list-itme.css';
+import './phone-list-item.css';
 
 const PhoneListItem = ({ phone }) =>{
     const {model,memory,price} = phone;

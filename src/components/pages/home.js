@@ -1,6 +1,12 @@
 import React from 'react';
+import PhoneList from '../phone-list';
+
 
 const HomePage = () =>{
-    return <div>Home</div>
-}
+    return (
+        <PhoneList />
+    );
+};
+
+
 export default HomePage;
