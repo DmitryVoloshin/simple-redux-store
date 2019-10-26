@@ -1,10 +1,22 @@
 import React from 'react';
-import './app.css';
-import { withPhonestoreService } from '../hoc';
+import { Route ,Switch} from 'react-router-dom';
+import { HomePage, CartPage } from '../pages';
 
-const App = ({ phonestoreService }) =>{
-    console.log(phonestoreService.getPhones())
-    return <div>Working App</div>
+
+import './app.css';
+
+
+const App = () =>{
+    return (
+        <Switch>
+            <Route path="/"
+            component={HomePage}
+            exact/>
+            <Route path="/Cart"
+            component={CartPage}
+            />
+        </Switch>
+    )
 };
 
-export default withPhonestoreService()(App)
+export default App
