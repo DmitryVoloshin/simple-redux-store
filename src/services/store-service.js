@@ -1,4 +1,4 @@
-import { resolve } from "uri-js";
+
 
 export default class PhoneStoreService{
 
@@ -26,9 +26,14 @@ export default class PhoneStoreService{
         }
     ];
     getPhones(){
-        return new Promise((resolve) =>{
+        return new Promise((resolve,reject) =>{
             setTimeout(()=>{
-                resolve(this.data)
+                if(Math.random() > 0.75){
+                    reject(new Error('something bad happened'))
+                }else{
+                    resolve(this.data)
+                }
+             
             }, 700)
         })
     }

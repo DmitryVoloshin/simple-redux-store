@@ -4,23 +4,26 @@ import './cart-table.css';
 
 const CartTable = () =>{
     return(
-        <div className="shop-cart_table">
+        <div className="shopping-cart-table">
             <h2>Your Order is</h2>
-            <table className="cart-table_block">
+            <table className="table">
                 <thead className="cart-table_head">
-                    <th>#</th>
-                    <th>Item</th>
-                    <th>Count</th>
-                    <th>Price</th>
-                    <th>Action</th>
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Count</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
 
                 <tbody className="cart-table_body">
-                    <tr>1</tr>
-                    <tr>Phone</tr>
-                    <tr>1</tr>
-                    <tr>799$</tr>
                     <tr>
+                    <td>1</td>
+                    <td>Phone</td>
+                    <td>1</td>
+                    <td>799$</td>
+                    <td>
                         <button className="btn btn-outline-danger btn-sm float-right">
                             <i className="fa fa-trash-o"></i>
                         </button>
@@ -30,6 +33,7 @@ const CartTable = () =>{
                         <button className="btn btn-outline-success btn-sm float-right">
                             <i className="fa fa-plus-circle"></i>
                         </button>
+                    </td>
                     </tr>
                 </tbody>
             </table>

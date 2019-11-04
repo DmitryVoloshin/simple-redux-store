@@ -10,7 +10,7 @@ const PhoneListItem = ({ phone }) =>{
                 <img src={pic} alt={model} className="phone-list_img"/>
           </div>
           <div className="phone-list_details">
-                <a href="#" className="list-details_title">{model}</a>
+                <span className="list-details_title">{model}</span>
                 <div className="list-details_memory">{memory}</div>
                 <div className="list-details_price">${price}</div>
                 <button className="btn btn-info add-to-cart">Buy</button>

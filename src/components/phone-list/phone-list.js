@@ -3,25 +3,28 @@ import PhoneListItem from '../phone-list-item';
 import { connect } from 'react-redux';
 
 import { withPhonestoreService} from '../hoc';
-import { phonesLoaded } from '../../actions';
+import { phonesLoaded,phonesRequested,phonesError} from '../../actions';
 import { compose } from '../utils';
+import Spinner from '../spinner';
+import ErrorIndicator from '../error-indicator'
 import './phone-list.css';
-
 
 
 class PhoneList extends Component{
 
-
     componentDidMount(){
-        // get data
-        const { phonestoreService,phonesLoaded } = this.props;
-        phonestoreService.getPhones()
-            .then((data)=>phonesLoaded(data));
-        // action to store
+        this.props.fetchPhones()
     }
 
     render(){
-        const { phones } = this.props;
+        const { phones, loading ,error} = this.props;
+
+        if (loading) {
+            return <Spinner/>;
+        };
+        if (error){
+            return <ErrorIndicator/>;
+        };
         return(
             <ul className="shop-list">
                 {
@@ -34,13 +37,21 @@ class PhoneList extends Component{
     }
 };
 
-const mapStateToProps = ({phones}) =>{
-    return {phones}
+const mapStateToProps = ({phones,loading,error}) =>{
+    return {phones,loading,error}
 };
 
-const mapDispatchToProps  ={
-      phonesLoaded
-};
+const mapDispatchToProps = ( dispatch , ownProps) =>{
+    const { phonestoreService } = ownProps;
+    return{
+        fetchPhones: () => {
+           dispatch(phonesRequested());
+            phonestoreService.getPhones()
+                .then((data)=> dispatch(phonesLoaded(data)))
+                .catch((err)=>dispatch(phonesError(err)));
+        }
+    }
+}
 
 export default compose(
     withPhonestoreService(),

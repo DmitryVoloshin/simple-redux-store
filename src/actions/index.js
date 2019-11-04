@@ -6,6 +6,19 @@ const phonesLoaded = (newPhones) =>{
   };
 };
 
+const phonesRequested = () =>{
+  return{
+    type: 'PHONES_REQUESTED'
+  }
+}
+const phonesError = (error) =>{
+  return{
+    type: 'PHONES_ERROR',
+    payload:error
+  }
+}
 export{
-    phonesLoaded
+    phonesLoaded,
+    phonesRequested,
+    phonesError,
 }
