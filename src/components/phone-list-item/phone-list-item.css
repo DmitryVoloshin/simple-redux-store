@@ -1,0 +1,27 @@
+.phone-list_item{
+    display: flex;
+    margin: 15px 0;
+    flex-direction: row;
+}
+.phone-list_cover{
+    flex-shrink: 0;
+    width: 140px;
+    margin-right: 30px;
+}
+.phone-list_img{
+    max-width: 100%;
+}
+.phone-list_details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    align-items: flex-start;
+}
+.list-details_title{
+    font-size: 1.2rem;
+}
+.list-details_memory{
+    font-size: 1.3rem;
+}
+

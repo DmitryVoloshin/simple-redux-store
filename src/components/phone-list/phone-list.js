@@ -14,16 +14,16 @@ class PhoneList extends Component{
 
     componentDidMount(){
         // get data
-        const { phonestoreService } = this.props;
-        const data = phonestoreService.getPhones();
+        const { phonestoreService,phonesLoaded } = this.props;
+        phonestoreService.getPhones()
+            .then((data)=>phonesLoaded(data));
         // action to store
-        this.props.phonesLoaded(data);
     }
 
     render(){
         const { phones } = this.props;
         return(
-            <ul>
+            <ul className="shop-list">
                 {
                     phones.map((phone)=>{
                         return <li key={phone.id}><PhoneListItem phone={phone}/></li>

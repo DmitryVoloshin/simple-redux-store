@@ -1,0 +1,32 @@
+.shop-cart_table {
+    margin-top: 45px;
+    display: grid;    
+  }
+  .shop-cart_table button {
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+  .cart-table_block{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 0 auto;
+      border-top: 1px solid rgb(165, 156, 156);
+      
+  }
+  .cart-table_body{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+  }
+  .cart-table_head{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+  }
+  .total-price{
+      font-size: 1.4rem;
+      text-align: right;
+      margin-right: 15px;
+      margin-top: 20px;
+  }
