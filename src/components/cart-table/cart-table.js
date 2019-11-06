@@ -1,47 +1,80 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import{
+phoneAddedToCart,
+phoneRemovedFromCart,
+allPhonesRemovedFromCart
+} from '../../actions';
 import './cart-table.css';
 
+const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
+  const renderRow = (item, idx) => {
+    const { id, model, count, total } = item;
+    return (
+      <tr key={id}>
+        <td>{idx + 1}</td>
+        <td>{model}</td>
+        <td>{count}</td>
+        <td>${total}</td>
+        <td>
+          <button
+            onClick={() => onDelete(id)}
+            className="btn btn-outline-danger btn-sm float-right">
+            <i className="fa fa-trash-o" />
+          </button>
+          <button
+            onClick={() => onIncrease(id)}
+            className="btn btn-outline-success btn-sm float-right">
+            <i className="fa fa-plus-circle" />
+          </button>
+          <button
+            onClick={() => onDecrease(id)}
+            className="btn btn-outline-warning btn-sm float-right">
+            <i className="fa fa-minus-circle" />
+          </button>
+        </td>
+      </tr>
+    );
+  };
 
-const CartTable = () =>{
-    return(
-        <div className="shopping-cart-table">
-            <h2>Your Order is</h2>
-            <table className="table">
-                <thead className="cart-table_head">
-                    <tr>
-                        <th>#</th>
-                        <th>Item</th>
-                        <th>Count</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+  return (
+    <div className="shopping-cart-table">
+      <h2>Your Order</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Model</th>
+            <th>Count</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-                <tbody className="cart-table_body">
-                    <tr>
-                    <td>1</td>
-                    <td>Phone</td>
-                    <td>1</td>
-                    <td>799$</td>
-                    <td>
-                        <button className="btn btn-outline-danger btn-sm float-right">
-                            <i className="fa fa-trash-o"></i>
-                        </button>
-                        <button className="btn btn-outline-warning btn-sm float-right">
-                            <i className="fa fa-minus-circle"></i>
-                        </button>
-                        <button className="btn btn-outline-success btn-sm float-right">
-                            <i className="fa fa-plus-circle"></i>
-                        </button>
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div className="total-price">
-                Total:799$
-            </div>
-        </div>
-    )
-}
+        <tbody>
+        { items.map(renderRow) }
+        </tbody>
+      </table>
 
-export default CartTable;
+      <div className="total">
+        Total: ${total}
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = ({ shoppingCart:{ cartItems, orderTotal }}) => {
+  return {
+    items: cartItems,
+    total: orderTotal
+  };
+};
+
+const mapDispatchToProps = {
+      onIncrease:phoneAddedToCart,
+      onDecrease:phoneRemovedFromCart,
+      onDelete:allPhonesRemovedFromCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartTable);

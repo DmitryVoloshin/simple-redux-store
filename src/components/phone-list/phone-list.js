@@ -3,21 +3,39 @@ import PhoneListItem from '../phone-list-item';
 import { connect } from 'react-redux';
 
 import { withPhonestoreService} from '../hoc';
-import { phonesLoaded,phonesRequested,phonesError} from '../../actions';
+import  {fetchPhones,phoneAddedToCart}  from '../../actions';
 import { compose } from '../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator'
 import './phone-list.css';
 
 
-class PhoneList extends Component{
+
+
+const PhoneList = ( {phones,onAddedToCart } ) =>{
+    return(
+        <ul className="shop-list">
+            {
+                phones.map((phone)=>{
+                    return <li key={phone.id}>
+                        <PhoneListItem phone={phone}
+                        onAddedToCart={()=> onAddedToCart(phone.id)}/>
+                        </li>
+                })
+            }
+        </ul>
+    );
+};
+
+
+class PhoneListContainer extends Component{
 
     componentDidMount(){
-        this.props.fetchPhones()
+        this.props.fetchPhones();
     }
 
     render(){
-        const { phones, loading ,error} = this.props;
+        const { phones, loading ,error,onAddedToCart} = this.props;
 
         if (loading) {
             return <Spinner/>;
@@ -25,35 +43,25 @@ class PhoneList extends Component{
         if (error){
             return <ErrorIndicator/>;
         };
-        return(
-            <ul className="shop-list">
-                {
-                    phones.map((phone)=>{
-                        return <li key={phone.id}><PhoneListItem phone={phone}/></li>
-                    })
-                }
-            </ul>
-        );
+
+        return <PhoneList phones={phones} onAddedToCart={onAddedToCart}/>
     }
 };
 
-const mapStateToProps = ({phones,loading,error}) =>{
+const mapStateToProps = ({ phoneList:{phones,loading,error}}) =>{
     return {phones,loading,error}
 };
 
-const mapDispatchToProps = ( dispatch , ownProps) =>{
-    const { phonestoreService } = ownProps;
+const mapDispatchToProps = ( dispatch , {phonestoreService}) =>{
     return{
-        fetchPhones: () => {
-           dispatch(phonesRequested());
-            phonestoreService.getPhones()
-                .then((data)=> dispatch(phonesLoaded(data)))
-                .catch((err)=>dispatch(phonesError(err)));
-        }
-    }
-}
+        fetchPhones: fetchPhones(phonestoreService,dispatch),
+        onAddedToCart: (id) => dispatch(phoneAddedToCart(id))
+    };
+};
+
+
 
 export default compose(
     withPhonestoreService(),
     connect(mapStateToProps,mapDispatchToProps)
-)(PhoneList);
+)(PhoneListContainer);
