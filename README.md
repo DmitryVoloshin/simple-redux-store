@@ -1,1 +1,1 @@
-This repo just for help learning react+redux to my friend
+
